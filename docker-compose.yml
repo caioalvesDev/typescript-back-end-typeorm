@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgress:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-admin}
+      PGDATA: /data/postgress
+    volumes:
+      - ./.docker/postgress:/data/postgress
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    networks:
+      - postgress
+
+networks:
+  postgress:
+    driver: bridge
